@@ -1,11 +1,10 @@
-name: Integration Tests (Playwright)
-on:
-  pull_request:
-    branches:
-      - master
+name: E2E Test
+on: 
+  schedule:
+  # Hammer the backend by running this every 5mins 😈
+    - cron: '*/5 * * * *'
   push:
-    branches:
-      - master
+
 jobs:
   playwright-run:
     runs-on: ubuntu-latest
