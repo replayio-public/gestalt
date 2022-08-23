@@ -1,4 +1,5 @@
 // @flow strict
+const { devices: replayDevices } = require("@replayio/playwright");
 const { devices } = require('@playwright/test');
 
 const reporter /*: string */ = process.env.CI ? 'github' : 'list';
@@ -19,10 +20,8 @@ const config = {
   },
   projects: [
     {
-      name: 'chromium',
-      use: {
-        ...devices['Desktop Chrome'],
-      },
+      name: "replay-chromium",
+      use: { ...replayDevices["Replay Chromium"] },
     },
   ],
   timeout: 120000,

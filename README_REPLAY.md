@@ -15,8 +15,9 @@ Getting started
 Running the tests locally without Replay
 
 1. `yarn build`
-1. `yarn run playwright:test --workers 2`
+2. `yarn run playwright:test --workers 2`
 
 Running the tests locally with Replay
 
-1. ?
+1. `yarn build`
+2. `yarn run playwright:test:replay --workers 2`
