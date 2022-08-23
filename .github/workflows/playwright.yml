@@ -1,13 +1,15 @@
 name: E2E Test
 on: 
   schedule:
-  # Hammer the backend by running this every 5mins 😈
     - cron: '0 0 * * *'
   push:
 
 jobs:
   playwright-run:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        record: ["record", "no-record"]
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -24,6 +26,8 @@ jobs:
         run: yarn build
       - name: Run your tests
         run: yarn run playwright:test:replay --workers 2
+        env:
+          RECORD_REPLAY_NO_RECORD: ${{ matrix.record == 'no-record' && '1' || '' }} 
       - name: Upload replays
         if: ${{ always() }}
         uses: replayio/action-upload@v0.4.3
