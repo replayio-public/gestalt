@@ -25,6 +25,7 @@
     "@netlify/plugin-nextjs": "^4.11.1",
     "@next/eslint-plugin-next": "^12.2.0",
     "@playwright/test": "^1.22.1",
+    "@replayio/playwright": "^0.2.23",
     "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-commonjs": "^18.0.0",
     "@rollup/plugin-json": "^4.1.0",
