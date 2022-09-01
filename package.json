@@ -119,7 +119,7 @@
     "lint:js": "eslint --max-warnings 0 .",
     "lint:sh": "shellcheck $(find . -type f -iname '*.sh' ! -path '*/node_modules/*' ! -path '*/.git/*')",
     "playwright:test:replay": "npx playwright test playwright/accessibility/ --project replay-chromium --reporter=@replayio/playwright/reporter,line --config=playwright/playwright.config.js",
-    "playwright:test": "npx playwright test playwright/accessibility/ --config=playwright/playwright.config.js",
+    "playwright:test": "npx playwright test playwright/accessibility/ --project chromium --config=playwright/playwright.config.js",
     "precommit": "lint-staged",
     "prettier": "prettier",
     "start": "netlify dev -c \"yarn dev\"",

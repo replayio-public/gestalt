@@ -20,6 +20,10 @@ const config = {
   },
   projects: [
     {
+      name: "chromium",
+      use: { ...devices["Desktop Chromium"] },
+    },
+    {
       name: "replay-chromium",
       use: { ...replayDevices["Replay Chromium"] },
     },

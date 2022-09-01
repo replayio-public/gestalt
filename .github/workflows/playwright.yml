@@ -6,12 +6,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  playwright-run:
+  playwright-record:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        record: ["record", "no-record"]
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -31,10 +27,47 @@ jobs:
         env:
           RECORD_REPLAY_TEST_METRICS: 1
           RECORD_REPLAY_WEBHOOK_URL: ${{ secrets.RECORD_REPLAY_WEBHOOK_URL }}
-          RECORD_REPLAY_NO_RECORD: ${{ matrix.record == 'no-record' && '1' || '' }} 
       - name: Upload replays
         if: ${{ always() }}
         uses: replayio/action-upload@v0.4.3
         with:
           api-key: rwk_uGZ2699gqfSQB5klt3Wpa8TtkdYHg4ZjvWRZ8RIZqdc
           public: true
+  playwright-no-record:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'yarn'
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: Install Playwright
+        run: npx playwright install --with-deps chromium
+      - name: Install Replay Playwright
+        run: npx @replayio/playwright install
+      - name: Run build
+        run: yarn build
+      - name: Run your tests
+        run: yarn run playwright:test:replay --workers 2
+        env:
+          RECORD_REPLAY_TEST_METRICS: 1
+          RECORD_REPLAY_WEBHOOK_URL: ${{ secrets.RECORD_REPLAY_WEBHOOK_URL }}
+          RECORD_REPLAY_NO_RECORD: 1
+  playwright-original:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'yarn'
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: Install Playwright
+        run: npx playwright install --with-deps chromium
+      - name: Run build
+        run: yarn build
+      - name: Run your tests
+        run: yarn run playwright:test
