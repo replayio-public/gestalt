@@ -27,6 +27,10 @@ const config = {
       name: "replay-chromium",
       use: { ...replayDevices["Replay Chromium"] },
     },
+    {
+      name: "replay-firefox",
+      use: { ...replayDevices["Replay Firefox"] },
+    },
   ],
   timeout: 120000,
 };
