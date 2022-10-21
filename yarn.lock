@@ -3736,22 +3736,23 @@
   resolved "https://registry.npmjs.org/@react-hook/passive-layout-effect/-/passive-layout-effect-1.2.1.tgz"
   integrity sha512-IwEphTD75liO8g+6taS+4oqz+nnroocNfWVHWz7j+N+ZO2vYrc6PV1q7GQhuahL0IOR7JccFTsFKQ/mb6iZWAg==
 
-"@replayio/playwright@^0.2.25":
-  version "0.2.25"
-  resolved "https://registry.yarnpkg.com/@replayio/playwright/-/playwright-0.2.25.tgz#75d69cb1b06cd547220c0eb6ac7fd057724a654c"
-  integrity sha512-zKcVem/7oktrRwOOy6DbWDXpeW1QmxCpDAF35TrjMcUG/Fofjqp3cbuUvxgBb+jiPOzfuvzpfyBcdO7UYsegMA==
+"@replayio/playwright@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@replayio/playwright/-/playwright-0.3.0.tgz#7fddf35681b2a6d2f3f41f15276f6d98a10885bc"
+  integrity sha512-flsQ5isB7tMIIBTXoKGDNpXEP7VaziFCYNnCBpppHC6l5f7HK5M6KHchs4rK5DuMPIqOGp47kgqunYM+t64fHQ==
   dependencies:
-    "@replayio/replay" "^0.9.5"
-    "@replayio/test-utils" "^0.1.1"
+    "@replayio/replay" "^0.10.0"
+    "@replayio/test-utils" "^0.2.0"
     uuid "^8.3.2"
 
-"@replayio/replay@^0.9.5":
-  version "0.9.5"
-  resolved "https://registry.yarnpkg.com/@replayio/replay/-/replay-0.9.5.tgz#f27d02662a1b9b17ca1b07d964a5c9b8b6bf9642"
-  integrity sha512-Xfjq+/PSXanNmnLiaYcQA6uHEeLPLR6tiB+c1btdddSYrgxDWg24kE0Bej1Rtn3sqBu2iHX7JdxzWkyFDNaRyg==
+"@replayio/replay@^0.10.0":
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/@replayio/replay/-/replay-0.10.0.tgz#6fc2261af2307c4e97ed3c63c2ec5a0423177427"
+  integrity sha512-oVTipwXzyNbLb7H4Nwn4Q9a+gn4DYsv+Ko3vMU68cVp4/Xmrp4p97m6Wq/p+lz7phWEULd9gUXwugnpfwUlUoA==
   dependencies:
     "@replayio/sourcemap-upload" "^1.0.3"
     commander "^7.2.0"
+    debug "^4.3.4"
     is-uuid "^1.0.2"
     jsonata "^1.8.6"
     superstruct "^0.15.4"
@@ -3769,12 +3770,12 @@
     node-fetch "^2.6.1"
     string.prototype.matchall "^4.0.5"
 
-"@replayio/test-utils@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@replayio/test-utils/-/test-utils-0.1.1.tgz#42c2ba4968f1358c3198f6bdd30ebd499d4e8b70"
-  integrity sha512-XBPPc3kMioeG+7cndLParp13M78PZ2XLn6UbGU1/+C9znH2yEAPml8cpJXi15ZSbCzZwvBEQu1dLcUmmv2dTZg==
+"@replayio/test-utils@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@replayio/test-utils/-/test-utils-0.2.0.tgz#5414bab529d0d60964afdcb544e02646f7af1603"
+  integrity sha512-IvcqiH6htHVgzsIVq7lT7XpXSJB9DdKvZxRbh0cH+THy7C9lpu/0KrrNx771MeRvjA/Lv+1ZrzsSRTUPzQexnQ==
   dependencies:
-    "@replayio/replay" "^0.9.5"
+    "@replayio/replay" "^0.10.0"
     node-fetch "^2.6.7"
     uuid "^8.3.2"
 
@@ -6807,7 +6808,7 @@ debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.9:
   dependencies:
     ms "2.0.0"
 
-debug@4, debug@^4.0.0, debug@^4.0.1, debug@^4.1.0, debug@^4.1.1, debug@^4.3.1, debug@^4.3.2:
+debug@4, debug@^4.0.0, debug@^4.0.1, debug@^4.1.0, debug@^4.1.1, debug@^4.3.1, debug@^4.3.2, debug@^4.3.4:
   version "4.3.4"
   resolved "https://registry.npmjs.org/debug/-/debug-4.3.4.tgz"
   integrity sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==
