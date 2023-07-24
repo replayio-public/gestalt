@@ -25,13 +25,15 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Install Playwright
         run: npx playwright install --with-deps chromium
+      - name: Install Replay Playwright
+        run: npx @replayio/playwright install
       - name: Run build
         run: yarn build
       - name: Run your tests
         run: |
           # Retry 2 times before the steps actually fails
-          (echo "===== Playwright run attempt: 1 ====" && yarn run playwright:test --workers 2 --shard=${{ matrix.shard }}) || \
-          (echo "===== Playwright run attempt: 2 ====" && yarn run playwright:test --workers 2 --shard=${{ matrix.shard }}) || \
+          (echo "===== Playwright run attempt: 1 ====" && yarn run playwright:test:replay --workers 2 --shard=${{ matrix.shard }}) || \
+          (echo "===== Playwright run attempt: 2 ====" && yarn run playwright:test:replay --workers 2 --shard=${{ matrix.shard }}) || \
           (echo "==== Playwright run attempt ====" && exit 1)
       - name: Upload test results
         if: always()
@@ -39,3 +41,9 @@ jobs:
         with:
           name: playwright-test-results
           path: playwright/test-results/
+      - name: Upload replays
+        if: ${{ always() }}
+        uses: replayio/action-upload@v0.5.1
+        with:
+          public: true
+          api-key: rwk_9aEyihLqKbhEQTMOwbECeiJqbBnBLqRIDYwkg80tg6L
