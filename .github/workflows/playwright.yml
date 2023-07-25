@@ -7,8 +7,16 @@ on:
     branches:
       - master
 jobs:
+  test-run-id:
+    runs-on: ubuntu-latest
+    outputs:
+      testRunId: ${{ steps.testRunId.outputs.testRunId }}
+    steps:
+      - id: testRunId
+        run: echo testRunId=$(npx uuid) >> "$GITHUB_OUTPUT"
   playwright-run:
     name: Test (${{ matrix.shard }})
+    needs: test-run-id
     timeout-minutes: 60
     runs-on: macos-12
     strategy:
@@ -35,6 +43,8 @@ jobs:
           (echo "===== Playwright run attempt: 1 ====" && yarn run playwright:test:replay --workers 2 --shard=${{ matrix.shard }}) || \
           (echo "===== Playwright run attempt: 2 ====" && yarn run playwright:test:replay --workers 2 --shard=${{ matrix.shard }}) || \
           (echo "==== Playwright run attempt ====" && exit 1)
+        env:
+          RECORD_REPLAY_METADATA_TEST_RUN_ID: ${{ needs.test-run-id.outputs.testRunId }}
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v2
