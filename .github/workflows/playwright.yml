@@ -1,8 +1,8 @@
 name: Integration Tests (Playwright)
 on:
   pull_request:
-    branches:
-      - master
+    # branches:
+    # - master
   push:
     branches:
       - master
