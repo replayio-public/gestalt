@@ -37,6 +37,8 @@ jobs:
         run: npx @replayio/playwright install
       - name: Run build
         run: yarn build
+        env:
+          RECORD_REPLAY_API_KEY: rwk_9aEyihLqKbhEQTMOwbECeiJqbBnBLqRIDYwkg80tg6L
       - name: Run your tests
         run: |
           # Retry 2 times before the steps actually fails
