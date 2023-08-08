@@ -1,14 +1,22 @@
 name: Integration Tests (Playwright)
 on:
   pull_request:
-    branches:
-      - master
+    # branches:
+    # - master
   push:
     branches:
       - master
 jobs:
+  test-run-id:
+    runs-on: ubuntu-latest
+    outputs:
+      testRunId: ${{ steps.testRunId.outputs.testRunId }}
+    steps:
+      - id: testRunId
+        run: echo testRunId=$(npx uuid) >> "$GITHUB_OUTPUT"
   playwright-run:
     name: Test (${{ matrix.shard }})
+    needs: test-run-id
     timeout-minutes: 60
     runs-on: macos-12
     strategy:
@@ -25,17 +33,29 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Install Playwright
         run: npx playwright install --with-deps chromium
+      - name: Install Replay Playwright
+        run: npx @replayio/playwright install
       - name: Run build
         run: yarn build
+        env:
+          RECORD_REPLAY_API_KEY: rwk_9aEyihLqKbhEQTMOwbECeiJqbBnBLqRIDYwkg80tg6L
       - name: Run your tests
         run: |
           # Retry 2 times before the steps actually fails
-          (echo "===== Playwright run attempt: 1 ====" && yarn run playwright:test --workers 2 --shard=${{ matrix.shard }}) || \
-          (echo "===== Playwright run attempt: 2 ====" && yarn run playwright:test --workers 2 --shard=${{ matrix.shard }}) || \
+          (echo "===== Playwright run attempt: 1 ====" && yarn run playwright:test:replay --workers 2 --shard=${{ matrix.shard }}) || \
+          (echo "===== Playwright run attempt: 2 ====" && yarn run playwright:test:replay --workers 2 --shard=${{ matrix.shard }}) || \
           (echo "==== Playwright run attempt ====" && exit 1)
+        env:
+          RECORD_REPLAY_METADATA_TEST_RUN_ID: ${{ needs.test-run-id.outputs.testRunId }}
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v2
         with:
           name: playwright-test-results
           path: playwright/test-results/
+      - name: Upload replays
+        if: ${{ always() }}
+        uses: replayio/action-upload@v0.5.1
+        with:
+          public: true
+          api-key: rwk_9aEyihLqKbhEQTMOwbECeiJqbBnBLqRIDYwkg80tg6L

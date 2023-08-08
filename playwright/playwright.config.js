@@ -1,5 +1,6 @@
 // @flow strict
 const { devices } = require('@playwright/test');
+import { devices as replayDevices } from "@replayio/playwright";
 
 const reporter /*: 'github' | 'list' */ = process.env.CI ? 'github' : 'list';
 
@@ -20,6 +21,10 @@ const config = {
       use: {
         ...devices['Desktop Chrome'],
       },
+    },
+    {
+      name: "replay-chromium",
+      use: { ...replayDevices["Replay Chromium"] },
     },
   ],
   reporter,
